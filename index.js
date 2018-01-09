@@ -28,10 +28,10 @@ var defaultVars = {
         return 'require(' + JSON.stringify(relpath) + ')';
     },
     global: function () {
-        return 'typeof global !== "undefined" ? global : '
+        return 'typeof window !== "undefined" && typeof global !== "undefined" && window.global === global ? window : '
+            + 'typeof global !== "undefined" ? global : '
             + 'typeof self !== "undefined" ? self : '
-            + 'typeof window !== "undefined" ? window : {}'
-        ;
+            + 'typeof window !== "undefined" ? window : {}';
     },
     'Buffer.isBuffer': function (file) {
         var relpath = getRelativeRequirePath(isbufferPath, file);
